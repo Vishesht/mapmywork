@@ -15,7 +15,7 @@ export default function Register(props) {
     const [lastname, setlastname] = useState()
     const [Email, setEmail] = useState()
     const [Password, setPassword] = useState()
-    const [Number, setNumber] = useState()
+    const [number, setNumber] = useState()
     const [Code, setCode] = useState()
     const [Gender, setGender] = useState()
     const [About, setAbout] = useState()
@@ -68,7 +68,7 @@ export default function Register(props) {
                     "email": Email,
                     "phone": {
                         "dialCode": Code,
-                        "number": Number,
+                        "number": number,
                     },
                     "address": {
                         "pinCode": PinCode,
