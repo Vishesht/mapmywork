@@ -11,10 +11,8 @@ import axios from 'axios'
 
 export default function Register(props) {
     const navigation = useNavigation();
-    const [firstname, setfirstname] = useState()
-    const [lastname, setlastname] = useState()
-    const [Email, setEmail] = useState()
-    const [Password, setPassword] = useState()
+    const [registerData,setRegisterData] = useState({firstname:'',lastname:'',email:'',password:''})
+    console.log("register data -- ",registerData)
     const [number, setNumber] = useState()
     const [Code, setCode] = useState()
     const [Gender, setGender] = useState()
@@ -49,86 +47,96 @@ export default function Register(props) {
     const genderModalData = [{ name: 'MALE' }, { name: 'FEMALE' }, { name: 'OTHERS' }]
     const LanguageModalData = [{ name: 'English' }, { name: 'Hindi' }, { name: 'Punjabi' }, { name: 'Kannada' }, { name: 'Tamil' }]
     // console.log(firstname + " " + lastname + " " + " " + Gender + " " + Email + " " + Password + " " + Number + " " + Gender + " " + MartialStatus + " " + Code+" "+State+" "+ConCode+" "+Role)
+    
     const Register = async () => {
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'tenant': props.route.params.tenant
-            }
-        };
-        await axios.post(`https://api.mapmyworkers.v2support.dev/api/auth/signup`,
-            {
-                "role": Role ? "PROVIDER" : 'APPLICANT',
-                "name": {
-                    "firstName": firstname,
-                    "lastName": lastname
-                },
-                "password": Password,
-                "contact": {
-                    "email": Email,
-                    "phone": {
-                        "dialCode": Code,
-                        "number": number,
+        if(true){
+            console.log("Role--"+Role+"   "+" First lastname "+registerData.firstname+" "+registerData.lastname+" password---  "+registerData.password)
+            console.log("email---"+registerData.email+" Code --- "+Code+"  number=---"+number+" PinCode=="+PinCode)
+            console.log("State=="+State+" Country--"+Country+" City=="+City+" Address2"+Address2+"Address--"+Address)
+            console.log("MartialStatus--"+MartialStatus+"Gender--"+Gender+" CompanyName--"+CompanyName+" ConPinCode"+ConPinCode)
+            console.log("ComState--"+ComState+" ComCountry--"+ComCountry+" ComCity"+ComCity+" ComAddress2"+ComAddress2+" ComAddress"+ComAddress)
+            console.log("WebsiteUrl"+WebsiteUrl+" WorkDays"+WorkDays+" About"+About)
+        }else{
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'tenant': props.route.params.tenant
+                }
+            };
+            await axios.post(`https://api.mapmyworkers.com/api/auth/signup`,
+                {
+                    "role": Role ? "PROVIDER" : 'APPLICANT',
+                    "name": {
+                        "firstName": registerData.firstname,
+                        "lastName": registerData.lastname
                     },
-                    "address": {
-                        "pinCode": PinCode,
-                        "state": State,
-                        "country":Country,
-                        "city": City,
-                        "line2": Address2,
-                        "line1": Address
-                    }
-                },
-                "martialStatus": MartialStatus,
-                "languagesKnown": [
-                    "hindi",
-                    "english"
-                ],
-                "DOB": {
-                    "date": 10,
-                    "month": 6,
-                    "year": 1979
-                },
-                "gender": Gender,
-                "picture": "https://www.unigreet.com/wp-content/uploads/2020/12/smile-please-dp-988x1024.jpg",
-                "companyName": CompanyName,
-                "companyAddress": {
-                    "pinCode": ConPinCode,
-                    "state": ComState,
-                    "country": ComCountry,
-                    "city": ComCity,
-                    "line2": ComAddress2,
-                    "line1": ComAddress
-                },
-                "noOfEmployees": EmpNumber,
-                "companyContact": {
-                    "dialCode": ConCode,
-                    "number": ComNumber,
-                },
-                "establishedIn": "2021-10-06T07:28:49.534Z",
-                "websiteUrl": WebsiteUrl,
-                "workingDays": WorkDays ? "Mon-Sat (6 Days Working)" : "Mon-Fri (5 Days Working)",
-                "bioInformation": {
-                    "about": About,
-                    "others": [
-                        {
-                            "title": "string",
-                            "value": "string"
+                    "password": registerData.password,
+                    "contact": {
+                        "email": registerData.email,
+                        "phone": {
+                            "dialCode": Code,
+                            "number": number,
+                        },
+                        "address": {
+                            "pinCode": PinCode,
+                            "state": State,
+                            "country":Country,
+                            "city": City,
+                            "line2": Address2,
+                            "line1": Address
                         }
-                    ]
+                    },
+                    "martialStatus": MartialStatus,
+                    "languagesKnown": [
+                        "hindi",
+                        "english"
+                    ],
+                    "DOB": {
+                        "date": 10,
+                        "month": 6,
+                        "year": 1979
+                    },
+                    "gender": Gender,
+                    "picture": "https://www.unigreet.com/wp-content/uploads/2020/12/smile-please-dp-988x1024.jpg",
+                    "companyName": CompanyName,
+                    "companyAddress": {
+                        "pinCode": ConPinCode,
+                        "state": ComState,
+                        "country": ComCountry,
+                        "city": ComCity,
+                        "line2": ComAddress2,
+                        "line1": ComAddress
+                    },
+                    "noOfEmployees": EmpNumber,
+                    "companyContact": {
+                        "dialCode": ConCode,
+                        "number": ComNumber,
+                    },
+                    "establishedIn": "2021-10-06T07:28:49.534Z",
+                    "websiteUrl": WebsiteUrl,
+                    "workingDays": WorkDays ? "Mon-Sat (6 Days Working)" : "Mon-Fri (5 Days Working)",
+                    "bioInformation": {
+                        "about": About,
+                        "others": [
+                            {
+                                "title": "string",
+                                "value": "string"
+                            }
+                        ]
+                    },
+                    "fcmToken": "string",
+                    "deviceId": "string",
+                    "sessionType": "ANDROID"
                 },
-                "fcmToken": "string",
-                "deviceId": "string",
-                "sessionType": "ANDROID"
-            },
-            options)
-            .then((response) => {
-                alert('User Created')
-                console.log("created user...", response)
-            }
-                , (error) => {
-                    console.log("Errorr in update---", error.response);
-                });
+                options)
+                .then((response) => {
+                    alert('User Created')
+                    console.log("created user...", response)
+                }
+                    , (error) => {
+                        console.log("Errorr in update---", error.response);
+                    });
+        }
     }
 
     function selectImage() {
@@ -215,8 +223,8 @@ export default function Register(props) {
                         <Ionicons style={{ marginTop: hp(-6), marginLeft: hp(8) }} name={'camera'} size={wp(5)} color={Colors.headerColor} />
                     </View>
                 </TouchableOpacity>
-                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="First Name *" onChangeText={txt => setfirstname(txt)} />
-                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="Last Name *" onChangeText={txt => setlastname(txt)} />
+                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="First Name *" onChangeText={txt =>{ registerData.firstname=txt; setRegisterData({...registerData})}} />
+                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="Last Name *" onChangeText={txt => {registerData.lastname=txt;setRegisterData({...registerData})}} />
                 <TouchableOpacity onPress={
                     () => {
                         setModalVisible(!modalVisible)
@@ -225,12 +233,12 @@ export default function Register(props) {
                     }
                 }>
                     <View style={[styles.textInput, { height: hp(5), justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }]}>
-                        <Text style={{ fontSize: hp(2), color: Colors.grey, marginLeft: hp(1), }}>Gender</Text>
+                        <Text style={{ fontSize: hp(2), color: Colors.grey, marginLeft: hp(1), }}>{!Gender?"Select Gender":Gender}</Text>
                         <Ionicons style={{ marginRight: hp(2) }} name={'caret-down'} size={wp(5)} color={'grey'} />
                     </View>
                 </TouchableOpacity>
-                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="Email *" onChangeText={txt => setEmail(txt)} />
-                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="Enter Password *" onChangeText={txt => setPassword(txt)} />
+                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="Email *" onChangeText={txt => {registerData.email=txt;setRegisterData({...registerData})}} />
+                <TextInput style={styles.textInput} placeholderTextColor={Colors.grey1} placeholder="Enter Password *" onChangeText={txt => {registerData.password=txt;setRegisterData({...registerData})}} />
                 <Text style={{ marginTop: hp(2), marginLeft: hp(3), fontSize: hp(1.6) }}>Role *</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: hp(8), marginTop: hp(3) }}>
                     <TouchableOpacity onPress={() => setRole(0)}>
@@ -255,7 +263,7 @@ export default function Register(props) {
                     setModelData(martialStatusData)
                 }}>
                     <View style={[styles.textInput, { height: hp(5), justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }]}>
-                        <Text style={{ fontSize: hp(2), color: Colors.grey, marginLeft: hp(1), }}>Martial Status</Text>
+                        <Text style={{ fontSize: hp(2), color: Colors.grey, marginLeft: hp(1), }}>{!MartialStatus?'Martial Status':MartialStatus}</Text>
                         <Ionicons style={{ marginRight: hp(2) }} name={'caret-down'} size={wp(5)} color={'grey'} />
                     </View>
                 </TouchableOpacity>

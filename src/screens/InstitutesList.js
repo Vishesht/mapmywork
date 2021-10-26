@@ -15,7 +15,7 @@ export default function InstitutesList() {
         getInstituteList()
     }, [])
     const getInstituteList = async () => {
-        await axios.get(`https://api.mapmyworkers.v2support.dev/api/website/get-all-tenants?pagination=false&page=1`)
+        await axios.get(`https://api.mapmyworkers.com/api/website/get-all-tenants?pagination=false&page=1`)
             .then((response) => {
                 console.log("hitiing getInstituteList", response.data.data)
                 setInsData(response.data.data)
@@ -29,12 +29,12 @@ export default function InstitutesList() {
                 <View style={styles.itemView}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: hp(2), marginHorizontal: hp(5) }}>
                         <View>
-                            <Image style={{ width: hp(10), height: hp(10), borderRadius: hp(8) }} source={{ uri: item.logo }} />
+                            <Image style={{ width: hp(10), height: hp(10), borderRadius: hp(8) }} source={{ uri: item.logo === "" ? "https://pbs.twimg.com/profile_images/603106581476085761/eqM5d7W-_400x400.png" : item.logo }} />
                         </View>
                         <View style={{ width: hp(34) }}>
                             <Text style={[styles.txt1, { fontWeight: 'bold', width: hp(26) }]}>{item.tenantName.firstName}</Text>
-                            <Text style={styles.txt1}>{item.tenantContact.dialCode+" "+item.tenantContact.number}</Text>
-                            <Text style={styles.txt1}>{item.tenantAddress.city+", "+item.tenantAddress.country}</Text>
+                            <Text style={styles.txt1}>{item.tenantContact.dialCode + " " + item.tenantContact.number}</Text>
+                            <Text style={styles.txt1}>{item.tenantAddress.city + ", " + item.tenantAddress.country}</Text>
                         </View>
                     </View>
                 </View>
